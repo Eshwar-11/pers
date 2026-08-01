@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for Kaju 🌷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF7EF;
+    --peach:#FFB899;
+    --peach-deep:#FF9166;
+    --tulip:#FF7FA0;
+    --tulip-deep:#FF5C87;
+    --lavender:#D9B8E8;
+    --plum:#5C2E4A;
+    --plum-soft:#8A5570;
+    --gorilla:#7A5038;
+    --gorilla-dark:#5A3826;
+    --gorilla-belly:#D9A87C;
+    --white-soft:#FFFDFB;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    font-family:'Nunito', sans-serif;
+    background:linear-gradient(160deg, var(--cream) 0%, #FFEFE3 45%, #FFE3ED 100%);
+    color:var(--plum);
+    min-height:100vh;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* floating petals background */
+  .petal-field{
+    position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+  }
+  .petal{
+    position:absolute; top:-40px; font-size:20px; opacity:0.55;
+    animation:fall linear infinite;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(360deg); }
+  }
+
+  /* ===== LOCK SCREEN ===== */
+  #lock{
+    position:fixed; inset:0; z-index:50;
+    background:linear-gradient(160deg, var(--tulip) 0%, var(--peach) 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+    transition:opacity 0.7s ease, visibility 0.7s ease;
+  }
+  #lock.hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  #lock h1{
+    font-family:'Baloo 2', sans-serif; color:var(--white-soft);
+    font-size:clamp(28px,7vw,44px); font-weight:800; letter-spacing:0.5px;
+    text-shadow:0 4px 18px rgba(90,40,60,0.25);
+  }
+  #lock p{
+    color:var(--white-soft); opacity:0.95; margin-top:10px; font-size:16px; font-weight:600;
+  }
+  #lock button{
+    margin-top:34px; border:none; cursor:pointer;
+    background:var(--white-soft); color:var(--tulip-deep);
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:18px;
+    padding:16px 38px; border-radius:100px;
+    box-shadow:0 10px 30px rgba(90,30,50,0.25);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  #lock button:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 14px 34px rgba(90,30,50,0.3);}
+  #lock button:focus-visible{ outline:3px solid var(--plum); outline-offset:3px; }
+  .lock-gorilla{ width:120px; height:auto; margin-bottom:6px; animation:sway 3.2s ease-in-out infinite; }
+  @keyframes sway{ 0%,100%{transform:rotate(-4deg);} 50%{transform:rotate(4deg);} }
+
+  /* ===== MAIN ===== */
+  main{ position:relative; z-index:1; max-width:640px; margin:0 auto; padding:28px 20px 80px; }
+
+  .card{
+    background:var(--white-soft);
+    border-radius:28px;
+    padding:30px 26px;
+    margin-bottom:22px;
+    box-shadow:0 14px 40px -12px rgba(120,60,90,0.18);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+
+  .eyebrow{
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:1.5px; color:var(--tulip-deep);
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  }
+  .eyebrow::before{ content:'🌷'; font-size:14px; }
+
+  h2{
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:clamp(22px,5vw,28px);
+    color:var(--plum); margin-bottom:12px; line-height:1.25;
+  }
+
+  p{ font-size:16px; line-height:1.65; color:var(--plum-soft); }
+  p + p{ margin-top:10px; }
+
+  /* HERO */
+  .hero{ text-align:center; padding-top:8px; }
+  .hero-gorilla{ width:180px; margin:0 auto 6px; display:block; }
+  .hero h1{
+    font-family:'Baloo 2', sans-serif; font-weight:800;
+    font-size:clamp(30px,8vw,46px); color:var(--tulip-deep); line-height:1.15;
+  }
+  .hero .sub{ font-size:18px; font-weight:700; color:var(--peach-deep); margin-top:6px; }
+
+  /* MOVIE + FLAMINGO row */
+  .grid-2{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media(min-width:560px){ .grid-2{ grid-template-columns:1fr 1fr; } }
+  .mini-card{
+    background:linear-gradient(155deg, #FFFDFB, #FFF1E8);
+    border-radius:22px; padding:22px; text-align:left;
+    border:1px solid rgba(255,150,120,0.18);
+  }
+  .mini-card .icon{ font-size:30px; margin-bottom:8px; display:block; }
+  .mini-card h3{ font-family:'Baloo 2', sans-serif; font-size:18px; color:var(--plum); margin-bottom:6px; }
+  .mini-card p{ font-size:14.5px; }
+  .code-pill{
+    display:inline-block; margin-top:12px; padding:8px 16px; border-radius:100px;
+    background:var(--tulip); color:white; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px;
+  }
+
+  /* REVEAL CARDS */
+  .reveal-note{ font-size:14px; color:var(--peach-deep); font-weight:700; margin-bottom:16px; }
+  .reveal-stack{ display:flex; flex-direction:column; gap:14px; }
+  .reveal-card{
+    position:relative; border-radius:20px; overflow:hidden; cursor:pointer;
+    background:linear-gradient(135deg, var(--lavender), var(--tulip));
+    padding:20px 22px; color:white; user-select:none;
+    transition:transform 0.2s ease;
+  }
+  .reveal-card:hover{ transform:translateY(-2px); }
+  .reveal-card:focus-visible{ outline:3px solid var(--plum); outline-offset:3px; }
+  .reveal-card .front{
+    display:flex; align-items:center; justify-content:space-between; font-family:'Baloo 2',sans-serif;
+    font-weight:700; font-size:16px;
+  }
+  .reveal-card .front span.tap{ font-size:12px; font-weight:600; opacity:0.85; }
+  .reveal-card .back{
+    max-height:0; opacity:0; overflow:hidden; transition:max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
+    font-size:14.5px; font-weight:600;
+  }
+  .reveal-card.open .back{ max-height:120px; opacity:1; margin-top:10px; }
+  .reveal-card.open .front .tap{ display:none; }
+  .stop-number{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.3);
+    font-size:13px; margin-right:10px;
+  }
+
+  /* PS */
+  .ps-card{
+    background:linear-gradient(155deg, #FFF1E8, #FFE3ED);
+    border:1px dashed var(--peach-deep);
+  }
+  .ps-card .eyebrow::before{ content:'🍑'; }
+  .ps-card p{ color:var(--plum); font-weight:600; }
+
+  /* footer signoff */
+  .signoff{ text-align:center; margin-top:8px; }
+  .signoff p{ font-family:'Baloo 2', sans-serif; font-size:18px; color:var(--tulip-deep); font-weight:700; }
+
+  /* picker cards (movie / flamingo) */
+  .picker-note{ font-size:14px; color:var(--peach-deep); font-weight:700; margin-bottom:16px; }
+  .picker-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+  @media(min-width:560px){ .picker-grid{ grid-template-columns:1fr 1fr; } }
+  .pick-card{
+    background:linear-gradient(155deg, #FFFDFB, #FFF1E8);
+    border-radius:22px; padding:22px; text-align:left; cursor:pointer;
+    border:2px solid rgba(255,150,120,0.18);
+    transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .pick-card:hover{ transform:translateY(-2px); }
+  .pick-card:focus-visible{ outline:3px solid var(--plum); outline-offset:3px; }
+  .pick-card .icon{ font-size:30px; margin-bottom:8px; display:block; }
+  .pick-card h3{ font-family:'Baloo 2', sans-serif; font-size:18px; color:var(--plum); margin-bottom:6px; }
+  .pick-card p{ font-size:14.5px; }
+  .pick-card .code-pill{
+    display:inline-block; margin-top:12px; padding:8px 16px; border-radius:100px;
+    background:var(--tulip); color:white; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px;
+  }
+  .pick-card.selected{
+    border-color:var(--tulip-deep);
+    background:linear-gradient(155deg, #FFF1E8, #FFE3ED);
+    box-shadow:0 10px 26px -8px rgba(255,90,130,0.35);
+  }
+  .pick-card .picked-tag{
+    display:none; margin-top:10px; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px; color:var(--tulip-deep);
+  }
+  .pick-card.selected .picked-tag{ display:block; }
+  #pickResult{
+    margin-top:14px; font-weight:700; color:var(--plum); font-size:15px; min-height:22px;
+  }
+
+  /* invitation styling for birthday section */
+  .invite-card{
+    background:linear-gradient(160deg, #FFFDFB, #FFF3E9);
+    border:2px solid var(--peach);
+    position:relative;
+  }
+  .invite-card::before{
+    content:'';
+    position:absolute; inset:8px;
+    border:1.5px dashed rgba(255,127,160,0.4);
+    border-radius:20px;
+    pointer-events:none;
+  }
+  .invite-heading{ text-align:center; margin-bottom:6px; }
+  .invite-heading .kicker{
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:13px;
+    letter-spacing:3px; text-transform:uppercase; color:var(--peach-deep);
+  }
+  .invite-heading h2{ text-align:center; margin-top:4px; }
+  .invite-sub{ text-align:center; font-size:14.5px; margin-bottom:18px; font-style:italic; color:var(--plum-soft); }
+  .invite-divider{
+    text-align:center; color:var(--tulip); font-size:14px; margin:6px 0 18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="petal-field" id="petalField" aria-hidden="true"></div>
+
+<div id="lock">
+  <svg class="lock-gorilla" viewBox="0 0 200 200" aria-hidden="true">
+    <ellipse cx="100" cy="175" rx="55" ry="14" fill="rgba(90,40,60,0.15)"/>
+    <path d="M60 120 Q50 90 65 70 Q75 50 100 48 Q125 50 135 70 Q150 90 140 120 Q145 150 100 160 Q55 150 60 120Z" fill="#7A5038"/>
+    <ellipse cx="100" cy="110" rx="34" ry="30" fill="#D9A87C"/>
+    <circle cx="85" cy="102" r="6" fill="#5A3826"/>
+    <circle cx="115" cy="102" r="6" fill="#5A3826"/>
+    <path d="M88 122 Q100 130 112 122" stroke="#5A3826" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="100" cy="112" rx="8" ry="6" fill="#C08A5C"/>
+  </svg>
+  <h1>Hi Kaju 🌷</h1>
+  <p>tap when you're out of the shower and settled in</p>
+  <button id="openBtn">open this for me</button>
+</div>
+
+<main>
+  <section class="hero card">
+    <svg class="hero-gorilla" viewBox="0 0 220 220" aria-hidden="true">
+      <ellipse cx="110" cy="205" rx="65" ry="12" fill="rgba(90,40,60,0.08)"/>
+      <path d="M55 140 Q40 95 65 65 Q80 35 110 32 Q140 35 155 65 Q180 95 165 140 Q172 175 110 185 Q48 175 55 140Z" fill="#7A5038"/>
+      <ellipse cx="110" cy="125" rx="42" ry="36" fill="#D9A87C"/>
+      <circle cx="90" cy="115" r="7" fill="#5A3826"/>
+      <circle cx="130" cy="115" r="7" fill="#5A3826"/>
+      <circle cx="92" cy="112" r="2" fill="white"/>
+      <circle cx="132" cy="112" r="2" fill="white"/>
+      <path d="M92 138 Q110 150 128 138" stroke="#5A3826" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="110" cy="128" rx="10" ry="7" fill="#C08A5C"/>
+      <ellipse cx="60" cy="120" rx="16" ry="24" fill="#7A5038"/>
+      <ellipse cx="160" cy="120" rx="16" ry="24" fill="#7A5038"/>
+      <!-- tulip in hand -->
+      <g transform="translate(150,150) rotate(20)">
+        <line x1="0" y1="0" x2="0" y2="34" stroke="#4C9A63" stroke-width="3"/>
+        <path d="M-10 -6 Q0 -26 10 -6 Q10 4 0 8 Q-10 4 -10 -6Z" fill="#FF7FA0"/>
+      </g>
+    </svg>
+    <h1>hey Kaju 💌</h1>
+    <p class="sub">your gorilla missed you today</p>
+    <p style="margin-top:16px;">I know today felt heavy. You don't have to explain it or fix your mood right now, just know I'm right here, and I've got a few things lined up to (hopefully) make you smile.</p>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">for later tonight</div>
+    <h2>your call, what do we do? 👀</h2>
+    <p class="picker-note">tap one to pick it</p>
+    <div class="picker-grid" id="pickerGrid">
+      <div class="pick-card" data-choice="movie" tabindex="0" role="button" aria-pressed="false">
+        <span class="icon">🎬</span>
+        <h3>movie night</h3>
+        <p>Same plan as always. Meet me on the usual call.</p>
+        <span class="code-pill">you know the code 😌</span>
+        <div class="picked-tag">picked ✓</div>
+      </div>
+      <div class="pick-card" data-choice="flamingo" tabindex="0" role="button" aria-pressed="false">
+        <span class="icon">🦩</span>
+        <h3>the flamingo cards</h3>
+        <p>They've been sitting there judging us for weeks. Let's finally answer a few, just us two.</p>
+        <div class="picked-tag">picked ✓</div>
+      </div>
+    </div>
+    <div id="pickResult"></div>
+  </section>
+
+  <section class="card invite-card">
+    <div class="invite-heading">
+      <div class="kicker">you are cordially invited</div>
+      <h2>to celebrate me, tomorrow 🎂</h2>
+    </div>
+    <p class="invite-sub">bring yourself, and only yourself, that's the whole guest list</p>
+    <div class="invite-divider">🌷 ✦ 🌷</div>
+    <p class="reveal-note">tap each stop to see what's planned</p>
+    <div class="reveal-stack" id="revealStack">
+      <div class="reveal-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="front"><span><span class="stop-number">1</span>Silverfied, Lajpat Nagar</span><span class="tap">tap</span></div>
+        <div class="back">Getting myself a piercing, and you're coming to hold my hand through it (please don't let me chicken out).</div>
+      </div>
+      <div class="reveal-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="front"><span><span class="stop-number">2</span>Nubo Cafe</span><span class="tap">tap</span></div>
+        <div class="back">Right after, food and quiet catching up. My favorite part might just be sitting there with you.</div>
+      </div>
+      <div class="reveal-card" tabindex="0" role="button" aria-expanded="false">
+        <div class="front"><span><span class="stop-number">3</span>Soda Shop</span><span class="tap">tap</span></div>
+        <div class="back">Fun drinks, silly bites, and ending the day exactly how we like it.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card ps-card">
+    <div class="eyebrow">a little ps</div>
+    <p>Skip the milk stuff tonight, okay? Eat light, but eat full, don't run on empty. Go easy on yourself today, Kaju.</p>
+  </section>
+
+  <div class="signoff">
+    <p>love you. always in your corner. 🐒🌷</p>
+  </div>
+</main>
+
+<script>
+  // floating petals
+  (function(){
+    const field = document.getElementById('petalField');
+    const emojis = ['🌷','🍑','💗'];
+    for(let i=0;i<16;i++){
+      const el = document.createElement('div');
+      el.className='petal';
+      el.textContent = emojis[i % emojis.length];
+      el.style.left = Math.random()*100+'vw';
+      el.style.animationDuration = (10+Math.random()*10)+'s';
+      el.style.animationDelay = (Math.random()*10)+'s';
+      el.style.fontSize = (14+Math.random()*14)+'px';
+      field.appendChild(el);
+    }
+  })();
+
+  // lock screen
+  document.getElementById('openBtn').addEventListener('click', function(){
+    document.getElementById('lock').classList.add('hidden');
+  });
+
+  // reveal cards
+  document.querySelectorAll('.reveal-card').forEach(function(card){
+    function toggle(){
+      const open = card.classList.toggle('open');
+      card.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+
+  // movie vs flamingo picker
+  (function(){
+    const cards = document.querySelectorAll('.pick-card');
+    const result = document.getElementById('pickResult');
+    const messages = {
+      movie: "okay, movie night it is 🎬 same call, same code.",
+      flamingo: "flamingo cards it is 🦩 finally cracking those open."
+    };
+    function choose(card){
+      cards.forEach(function(c){
+        c.classList.remove('selected');
+        c.setAttribute('aria-pressed','false');
+      });
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed','true');
+      result.textContent = messages[card.getAttribute('data-choice')];
+    }
+    cards.forEach(function(card){
+      card.addEventListener('click', function(){ choose(card); });
+      card.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); choose(card); }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
