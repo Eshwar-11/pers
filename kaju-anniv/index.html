@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Us & This Year</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --fg: #e8e4df;
+  --fg-muted: #8a8279;
+  --fg-dim: #5a554e;
+  --accent: #c8a87c;
+  --accent-soft: rgba(200, 168, 124, 0.15);
+  --accent-glow: rgba(200, 168, 124, 0.08);
+  --rose: #d4a0a0;
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Cormorant Garamond', 'Garamond', serif;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- HERO / OPENING ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-date {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.3s forwards;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--fg);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 1.4s ease 0.6s forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 300;
+  color: var(--fg-muted);
+  max-width: 400px;
+  opacity: 0;
+  animation: fadeUp 1.4s ease 0.9s forwards;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.5s forwards;
+}
+
+.scroll-hint span {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---- TIMELINE SECTIONS ---- */
+.timeline {
+  position: relative;
+  max-width: 100%;
+}
+
+/* The vertical golden line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--fg-dim) 5%,
+    var(--fg-dim) 95%,
+    transparent 100%
+  );
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 24px;
+  }
+}
+
+/* ---- SECTION HEADERS ---- */
+.section-header {
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+}
+
+.section-header .month-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--fg);
+  line-height: 1.2;
+}
+
+.section-header .section-line {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin: 20px auto 0;
+  opacity: 0.5;
+}
+
+/* ---- PHOTO ITEMS ---- */
+.photo-item {
+  padding: 40px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.photo-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-item.layout-full {
+  max-width: 700px;
+}
+
+.photo-item.layout-wide {
+  max-width: 900px;
+}
+
+.photo-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--bg-card);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0.95) contrast(1.02);
+  transition: filter 0.6s ease, transform 4s ease;
+}
+
+.photo-item.visible .photo-frame img {
+  transform: scale(1.03);
+}
+
+.photo-caption {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.photo-caption .phrase {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--fg-muted);
+  font-weight: 300;
+}
+
+.photo-caption .location {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ---- PAIR LAYOUT (two photos side by side) ---- */
+.photo-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.photo-pair.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-pair .photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .photo-pair {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+}
+
+/* ---- SPACER / BREATHING ROOM ---- */
+.breath {
+  height: 80px;
+}
+
+.breath-lg {
+  height: 140px;
+}
+
+/* ---- FINAL MESSAGE ---- */
+.finale {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+}
+
+.finale::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, var(--accent-glow) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.finale-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 40px;
+}
+
+.finale-message {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--fg);
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.finale-message.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.finale-message .highlight {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.finale-sign {
+  margin-top: 60px;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-style: italic;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+}
+
+.finale-sign.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.finale-date {
+  margin-top: 16px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--fg-dim);
+  opacity: 0;
+  transition: opacity 1s ease 1s;
+}
+
+.finale-date.visible {
+  opacity: 1;
+}
+
+/* ---- FLOATING PARTICLES ---- */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.1; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
+/* ---- PROGRESS BAR ---- */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--rose));
+  z-index: 100;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* ---- COUNTER ---- */
+.year-counter {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--fg-dim);
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.year-counter.show {
+  opacity: 1;
+}
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 600px) {
+  .photo-item {
+    padding: 24px 16px;
+  }
+  .photo-pair {
+    padding: 24px 16px;
+  }
+  .section-header {
+    padding: 80px 16px 40px;
+  }
+  .photo-caption {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .year-counter {
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+/* ---- PREFERS REDUCED MOTION ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .photo-item, .photo-pair {
+    opacity: 1;
+    transform: none;
+  }
+  .finale-message, .finale-sign, .finale-date {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Ed Sheeran screenshot styling */
+.music-card {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.music-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.music-card .photo-frame {
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.music-card .music-label {
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--fg-muted);
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Floating particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Year counter -->
+<div class="year-counter" id="yearCounter">OCT 2025</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-date">October 4, 2025 &mdash; October 4, 2026</div>
+  <h1>One Year of<br><em>Us</em></h1>
+  <p class="hero-sub">A year in photographs, feelings, and all the little moments that became everything.</p>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===================== THE BEGINNING ===================== -->
+<div class="section-header" data-month="OCT 2025">
+  <div class="month-label">October 2025</div>
+  <h2>Where It Started</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="OCT 2025">
+  <div class="photo-frame">
+    <img src="images/01-first-laugh.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">The laugh that started it all</span>
+    <span class="location">Dwarka, Delhi</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== EARLY DAYS ===================== -->
+<div class="section-header" data-month="NOV 2025">
+  <div class="month-label">November - December 2025</div>
+  <h2>Learning Your World</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="NOV 2025">
+  <div class="photo-frame">
+    <img src="images/02-metro-selfie.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Stealing moments between stations</span>
+    <span class="location">Delhi Metro</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="DEC 2025">
+  <div class="photo-frame">
+    <img src="images/03-monument-feet.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/06-nizamuddin.jpg" alt="" loading="lazy">
+  </div>
+</div>
+
+<div class="photo-item layout-full" data-month="DEC 2025">
+  <div class="photo-frame">
+    <img src="images/04-humayuns-tomb.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Walking through centuries, hand in hand</span>
+    <span class="location">Humayun's Tomb</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="DEC 2025">
+  <div class="photo-frame">
+    <img src="images/05-humayuns-tomb-2.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Some places just feel like us</span>
+    <span class="location">Nizamuddin</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="DEC 2025">
+  <div class="photo-frame">
+    <img src="images/07-christmas.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/08-christmas-2.jpg" alt="" loading="lazy">
+  </div>
+</div>
+<div class="photo-item layout-full" style="padding-top: 0;">
+  <div class="photo-caption">
+    <span class="phrase">Our first Christmas, and suddenly the holidays meant something</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== WINTER LOVE ===================== -->
+<div class="section-header" data-month="JAN 2026">
+  <div class="month-label">January - February 2026</div>
+  <h2>Falling Deeper</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="JAN 2026">
+  <div class="photo-frame">
+    <img src="images/09-holding-hands.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Cold hands, warm everything else</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="JAN 2026">
+  <div class="photo-frame">
+    <img src="images/10-mirror-selfie.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/12-photobooth.jpg" alt="" loading="lazy">
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="JAN 2026">
+  <div class="photo-frame">
+    <img src="images/11-lodhi-garden.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Our kind of paradise</span>
+    <span class="location">Lodhi Garden</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="FEB 2026">
+  <div class="photo-frame">
+    <img src="images/13-outdoor-cafe.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">You, sunshine, coffee. In that order.</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="FEB 2026">
+  <div class="photo-frame">
+    <img src="images/14-nails-heart.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Heartbeat on my chest</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="FEB 2026">
+  <div class="photo-frame">
+    <img src="images/15-3d-glasses.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Every moment with you feels like a movie</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="FEB 2026">
+  <div class="photo-frame" style="max-width: 400px; margin: 0 auto;">
+    <img src="images/16-whatsapp-chat.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption" style="max-width: 400px; margin: 8px auto 0;">
+    <span class="phrase">"Where's your face" ... always wanting to see you</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="FEB 2026">
+  <div class="photo-frame">
+    <img src="images/17-saket-date.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/18-saket-date-2.jpg" alt="" loading="lazy">
+  </div>
+</div>
+<div class="photo-item layout-full" style="padding-top: 0;">
+  <div class="photo-caption">
+    <span class="phrase">Date nights that turned into our thing</span>
+    <span class="location">Saket</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== SPRING ===================== -->
+<div class="section-header" data-month="MAR 2026">
+  <div class="month-label">March 2026</div>
+  <h2>Celebrating You</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="MAR 2026">
+  <div class="photo-frame">
+    <img src="images/19-dhaula-kuan.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Wherever we go, it becomes ours</span>
+    <span class="location">Dhaula Kuan</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="MAR 2026">
+  <div class="photo-frame">
+    <img src="images/20-her-birthday.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Happy birthday to my favourite person</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="MAR 2026">
+  <div class="photo-frame">
+    <img src="images/21-birthday-cake.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Make a wish, I already got mine</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="MAR 2026">
+  <div class="photo-frame">
+    <img src="images/22-birthday-dinner.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/23-birthday-cheers.jpg" alt="" loading="lazy">
+  </div>
+</div>
+<div class="photo-item layout-full" style="padding-top: 0;">
+  <div class="photo-caption">
+    <span class="phrase">To us, to you, to everything ahead</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== GROWING TOGETHER ===================== -->
+<div class="section-header" data-month="APR 2026">
+  <div class="month-label">April - May 2026</div>
+  <h2>Growing Together</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="APR 2026">
+  <div class="photo-frame">
+    <img src="images/24-lake-portrait.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Still water, still you, still taking my breath</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="APR 2026">
+  <div class="photo-frame">
+    <img src="images/25-park-bench.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Our faces when nobody's watching</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="APR 2026">
+  <div class="photo-frame">
+    <img src="images/26-mirror-art.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Even broken things look beautiful with you</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="APR 2026">
+  <div class="photo-frame" style="max-width: 500px; margin: 0 auto;">
+    <img src="images/27-video-call.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption" style="max-width: 500px; margin: 8px auto 0;">
+    <span class="phrase">Distance is just a screen between two hearts</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== SUMMER ===================== -->
+<div class="section-header" data-month="JUN 2026">
+  <div class="month-label">June - July 2026</div>
+  <h2>Sweet Like Summer</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-pair" data-month="JUN 2026">
+  <div class="photo-frame">
+    <img src="images/28-ice-cream.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/29-ice-cream-2.jpg" alt="" loading="lazy">
+  </div>
+</div>
+<div class="photo-item layout-full" style="padding-top: 0;">
+  <div class="photo-caption">
+    <span class="phrase">Life's sweet, but you're sweeter</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="JUL 2026">
+  <div class="photo-frame">
+    <img src="images/30-night-out.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">City lights have nothing on you</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="JUL 2026">
+  <div class="photo-frame">
+    <img src="images/31-heritage-selfie.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Making memories at every corner</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== HIS BIRTHDAY ===================== -->
+<div class="section-header" data-month="AUG 2026">
+  <div class="month-label">August 2, 2026</div>
+  <h2>My Turn to Celebrate</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-wide" data-month="AUG 2026">
+  <div class="photo-frame">
+    <img src="images/32-his-birthday.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Best birthday gift? Having you right here</span>
+    <span class="location">Hauz Khas</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="AUG 2026">
+  <div class="photo-frame">
+    <img src="images/33-his-birthday-2.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/34-his-birthday-3.jpg" alt="" loading="lazy">
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== LATE SUMMER ===================== -->
+<div class="section-header" data-month="AUG 2026">
+  <div class="month-label">August 2026</div>
+  <h2>Every Day, Chosen</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="AUG 2026">
+  <div class="photo-frame">
+    <img src="images/35-lotus-temple.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">Finding peace in the chaos, together</span>
+    <span class="location">Nehru Place</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-item layout-full" data-month="AUG 2026">
+  <div class="photo-frame">
+    <img src="images/36-defence-colony.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">The one who makes ordinary feel extraordinary</span>
+    <span class="location">Defence Colony</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="AUG 2026">
+  <div class="photo-frame">
+    <img src="images/37-hauz-khas.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/38-hauz-khas-2.jpg" alt="" loading="lazy">
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<div class="photo-pair" data-month="AUG 2026">
+  <div class="photo-frame">
+    <img src="images/39-hauz-khas-3.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-frame">
+    <img src="images/40-hauz-khas-4.jpg" alt="" loading="lazy">
+  </div>
+</div>
+<div class="photo-item layout-full" style="padding-top: 0;">
+  <div class="photo-caption">
+    <span class="phrase">Our spot, our sunsets, our story</span>
+    <span class="location">Hauz Khas</span>
+  </div>
+</div>
+
+<div class="breath-lg"></div>
+
+<!-- ===================== ALMOST ONE YEAR ===================== -->
+<div class="section-header" data-month="SEP 2026">
+  <div class="month-label">September 2026</div>
+  <h2>Almost There</h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="photo-item layout-full" data-month="SEP 2026">
+  <div class="photo-frame">
+    <img src="images/41-cp-jewelry.jpg" alt="" loading="lazy">
+  </div>
+  <div class="photo-caption">
+    <span class="phrase">A hairpin at CP, and my heart, still yours</span>
+    <span class="location">Connaught Place</span>
+  </div>
+</div>
+
+<div class="breath"></div>
+
+<!-- Ed Sheeran music card -->
+<div class="music-card" data-month="SEP 2026">
+  <div class="photo-frame">
+    <img src="images/42-love-in-slow-motion.jpg" alt="" loading="lazy">
+  </div>
+  <div class="music-label">Our soundtrack, on repeat</div>
+</div>
+
+<div class="breath-lg"></div>
+<div class="breath-lg"></div>
+
+<!-- ===================== THE MESSAGE ===================== -->
+<section class="finale">
+  <div class="finale-label">October 4, 2026</div>
+
+  <div class="finale-message">
+    1 year huh! This dumbbo never thought someone will place him at the core of their life. Mind you I used dumbbo cuz there are sometimes I can be an absolute idiot but hey they still could be counted on your fingers!!
+    <br><br>
+    I'm learnt you better, still learning, will keep learning you the best way possible.
+    <br><br>
+    This year with you has been amazing, been such a <span class="highlight">highlight year</span> in my life.
+    <br><br>
+    Like I've said many times in my monthly letter... you stepped in and voila there was <span class="highlight">light, colors (even reds :)), happiness, excitement</span>.
+    <br><br>
+    You've been the most mature, understanding, reliable, my baby sometimes, my mumma most times, sweet, bitter, mostly savoury & afrodasiacy &#10084;
+    <br><br>
+    Here's to you, to us.
+  </div>
+
+  <div class="finale-sign">Happy Anniversary, darling angel</div>
+
+  <div class="finale-date">04 . 10 . 2026</div>
+</section>
+
+<div style="height: 100px;"></div>
+
+<script>
+// ---- Intersection Observer for fade-in ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.photo-item, .photo-pair, .music-card, .finale-message, .finale-sign, .finale-date').forEach(el => {
+  observer.observe(el);
+});
+
+// ---- Progress bar ----
+const progressBar = document.getElementById('progressBar');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  progressBar.style.width = progress + '%';
+}
+
+// ---- Year counter ----
+const yearCounter = document.getElementById('yearCounter');
+const monthElements = document.querySelectorAll('[data-month]');
+
+function updateCounter() {
+  const scrollY = window.scrollY + window.innerHeight * 0.5;
+  let currentMonth = 'OCT 2025';
+
+  monthElements.forEach(el => {
+    if (el.offsetTop <= scrollY) {
+      currentMonth = el.dataset.month;
+    }
+  });
+
+  yearCounter.textContent = currentMonth;
+
+  // Show/hide counter
+  if (window.scrollY > 300 && window.scrollY < document.documentElement.scrollHeight - window.innerHeight - 200) {
+    yearCounter.classList.add('show');
+  } else {
+    yearCounter.classList.remove('show');
+  }
+}
+
+// ---- Particles ----
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    particle.style.animationDelay = (Math.random() * 10) + 's';
+    particle.style.width = (Math.random() * 2 + 1) + 'px';
+    particle.style.height = particle.style.width;
+    container.appendChild(particle);
+  }
+}
+
+// ---- Scroll handler ----
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      updateProgress();
+      updateCounter();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// Init
+createParticles();
+updateProgress();
+updateCounter();
+</script>
+
+</body>
+</html>
